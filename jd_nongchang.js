@@ -1297,7 +1297,6 @@ return new Promise(async resolve => {
 
   $.newShareCodes = [];
 
-  }
   const readShareCodeRes = await readShareCode();
   
   if (readShareCodeRes && readShareCodeRes.code === 200) {
