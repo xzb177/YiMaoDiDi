@@ -41,6 +41,10 @@ let jdFruitBeanCard = false;//农场使用水滴换豆卡(如果出现限时活�
 let randomCount = $.isNode() ? 20 : 5;
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 const urlSchema = `openjd://virtual?params=%7B%20%22category%22:%20%22jump%22,%20%22des%22:%20%22m%22,%20%22url%22:%20%22https://h5.m.jd.com/babelDiy/Zeus/3KSjXqQabiTuD1cJ28QskrpWoBKT/index.html%22%20%7D`;
+
+
+
+
 !(async () => {
   await requireConfig();
   if (!cookiesArr[0]) {
@@ -520,7 +524,7 @@ async function turntableFarm() {
     }
     //天天抽奖助力
     console.log('开始天天抽奖--好友助力--每人每天只有三次助力机会.')
-    for (let code of newShareCodes) {
+    for (let code of $.newShareCodes) {
       if (code === $.farmInfo.farmUserPro.shareCode) {
         console.log('天天抽奖-不能自己给自己助力\n')
         continue
@@ -617,9 +621,9 @@ async function masterHelpShare() {
   let salveHelpAddWater = 0;
   let remainTimes = 4;//今日剩余助力次数,默认4次（京东农场每人每天4次助力机会）。
   let helpSuccessPeoples = '';//成功助力好友
-  console.log(`格式化后的助力码::${JSON.stringify(newShareCodes)}\n`);
+  console.log(`格式化后的助力码::${JSON.stringify($.newShareCodes)}\n`);
 
-  for (let code of newShareCodes) {
+  for (let code of $.newShareCodes) {
     console.log(`开始助力京东账号${$.index} - ${$.nickName}的好友: ${code}`);
     if (!code) continue;
     if (code === $.farmInfo.farmUserPro.shareCode) {
@@ -885,7 +889,7 @@ async function getWaterFriendGotAward() {
 }
 //接收成为对方好友的邀请
 async function receiveFriendInvite() {
-  for (let code of newShareCodes) {
+  for (let code of $.newShareCodes) {
     if (code === $.farmInfo.farmUserPro.shareCode) {
       console.log('自己不能邀请自己成为好友噢\n')
       continue
@@ -1294,9 +1298,7 @@ return new Promise(async resolve => {
 //格式化助力码
 function shareCodesFormat() {
 return new Promise(async resolve => {
-
   $.newShareCodes = [];
-
   const readShareCodeRes = await readShareCode();
   
   if (readShareCodeRes && readShareCodeRes.code === 200) {
